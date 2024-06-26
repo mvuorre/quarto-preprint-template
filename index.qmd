@@ -1,0 +1,103 @@
+---
+title: Title
+running-head: Running head
+author:
+  - name: Matti Vuorre
+    email: mjvuorre@uvt.nl
+    orcid: 0000-0001-5052-066X
+    url: https://www.tilburguniversity.edu/staff/m-j-vuorre
+    corresponding: true
+    affiliation:
+      - ref: 1
+affiliations:
+  - id: 1
+    name: Tilburg University
+    department: Department of Social Psychology
+abstract: |
+  Abstract.
+keywords: [keywords]
+authornote: |
+  This is an example author note.
+bibliography: bibliography.bib
+bibliographystyle: apa
+mainfont: Libertinus Serif
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+# Output options
+knitr::opts_chunk$set(
+  eval = TRUE,
+  cache = TRUE,
+  warning = FALSE,
+  error = FALSE,
+  message = FALSE,
+  echo = FALSE
+)
+options(digits = 2)
+
+# Plotting options
+theme_set(
+  theme_classic(base_size = 9) +
+    theme(
+      strip.text = element_text(color = "black", hjust = 0),
+      strip.background = element_rect(color = NA, fill = NA),
+      strip.text.x = element_text(size = rel(0.9)),
+      line = element_line(linewidth = .25),
+      plot.tag = element_text(size = rel(1))
+    )
+)
+
+# Model estimation options, customize in .Renviron
+dir.create("cache", FALSE)
+options(
+  brms.backend = Sys.getenv("BRMS_BACKEND", "rstan"), 
+  brms.threads = as.numeric(Sys.getenv("MAX_CORES"), 1),
+  mc.cores = as.numeric(Sys.getenv("MAX_CORES"), 4)
+)
+```
+
+
+
+# Disclosures
+
+## Data and code availability
+
+The online analysis supplement is readable at {{<meta site-url>}}. Our materials are available at GitHub ({{<meta repo-url>}}) and the OSF ({{<meta osf-url>}}).
+
+## Author contributions
+<!-- https://casrai.org/credit/ -->
+
+- Conceptualization
+- Data curation
+- Formal Analysis
+- Funding acquisition
+- Investigation
+- Methodology
+- Project administration
+- Resources
+- Software
+- Supervision
+- Validation
+- Visualization
+- Writing – original draft
+- Writing – review & editing
+
+## Competing interests
+
+The author(s) declare no competing interests.
+
+<!-- Format references better in non-html formats -->
+::: {.content-hidden when-format="html"}
+# References
+
+:::{.refs}
+:::
+:::
+
+<!-- Material after this only appears in html output -->
+::: {.content-visible when-format="html"}
+
+:::

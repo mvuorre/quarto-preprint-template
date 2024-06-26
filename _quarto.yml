@@ -1,0 +1,38 @@
+project:
+  title: "Preprint"
+  render:
+    - index.qmd
+  output-dir: docs
+
+site-url: https://mvuorre.github.io/
+repo-url: https://github.com/mvuorre/
+osf-url: https://osf.io/
+preprint-url: https://osf.io/preprints/psyarxiv/
+
+format:
+  preprint-typst:
+    output-file: ms.pdf
+    fontsize: 11pt
+    mainfont: Libertinus Serif
+  html:
+    toc: true
+    fontsize: 14pt
+    mainfont: Fira Sans
+    other-links: 
+      - text: Preprint (PsyArXiv)
+        href: https://
+        icon: file-pdf
+      - text: Online supplement
+        href: https://mvuorre.github.io/
+        icon: globe2
+      - text: GitHub Repository
+        href: https://osf.io/
+        icon: github
+      - text: OSF Repository
+        href: https://github.com/mvuorre/
+        icon: archive
+  preprint-docx:
+    output-file: ms.docx
+
+execute:
+  freeze: auto
