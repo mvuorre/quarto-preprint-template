@@ -5,6 +5,7 @@
 .httr-oauth
 .DS_Store
 .quarto
+/.quarto/
 
 # Ignore intermediate files
 *cache/
@@ -12,3 +13,4 @@
 /*.svg
 /*.pdf
 /*.docx
+/_freeze/
