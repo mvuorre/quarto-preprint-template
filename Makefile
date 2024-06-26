@@ -1,4 +1,7 @@
-all: docs
+all: renv docs
+
+renv: renv.lock
+	Rscript -e "renv::restore()"
 
 docs: index.qmd _extensions/preprint/typst-show.typ _extensions/preprint/typst-template.typ
 	quarto render

@@ -23,6 +23,8 @@ Click "Use this template" on [GitHub](https://github.com/mvuorre/quarto-preprint
 
 After "installing" the template, modify contents to your liking. This probably includes rewriting README.md, modifying .Renviron, writing your content in index.qmd, changing LICENSE, and editing _quarto.yml.
 
+It is then easiest to start with the default renv environment. To do so run `make renv`.
+
 After adding your content, "publish" your work:
 
 1. Run `make`
