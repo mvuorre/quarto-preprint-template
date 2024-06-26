@@ -10,10 +10,6 @@ osf-url: https://osf.io/
 preprint-url: https://osf.io/preprints/psyarxiv/
 
 format:
-  preprint-typst:
-    output-file: ms.pdf
-    fontsize: 11pt
-    mainfont: Libertinus Serif
   html:
     toc: true
     fontsize: 14pt
@@ -31,6 +27,10 @@ format:
       - text: OSF Repository
         href: https://github.com/mvuorre/
         icon: archive
+  preprint-typst:
+    output-file: ms.pdf
+    fontsize: 11pt
+    mainfont: Libertinus Serif
   preprint-docx:
     output-file: ms.docx
 
