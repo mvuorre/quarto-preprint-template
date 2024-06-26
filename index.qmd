@@ -27,6 +27,8 @@ mainfont: Libertinus Serif
 #| label: setup
 #| include: false
 
+library(tidyverse)
+
 # Output options
 knitr::opts_chunk$set(
   eval = TRUE,
