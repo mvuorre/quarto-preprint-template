@@ -61,7 +61,7 @@ theme_set(
 dir.create("cache", FALSE)
 options(
   brms.backend = Sys.getenv("BRMS_BACKEND", "rstan"), 
-  brms.threads = as.numeric(Sys.getenv("MAX_THREADS"), 1),
+  brms.threads = as.numeric(Sys.getenv("BRMS_THREADS"), 1),
   mc.cores = as.numeric(Sys.getenv("MAX_CORES"), 4)
 )
 
