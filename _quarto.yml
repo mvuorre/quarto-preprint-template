@@ -22,10 +22,10 @@ format:
         href: https://mvuorre.github.io/
         icon: globe2
       - text: GitHub Repository
-        href: https://osf.io/
+        href: https://github.com/mvuorre/
         icon: github
       - text: OSF Repository
-        href: https://github.com/mvuorre/
+        href: https://osf.io/
         icon: archive
   preprint-typst:
     output-file: ms.pdf
