@@ -17,7 +17,7 @@ abstract: |
   Abstract.
 keywords: [keywords]
 authornote: |
-  This is an example author note.
+  This preprint is not peer-reviewed.
 bibliography: bibliography.bib
 bibliographystyle: apa
 mainfont: Libertinus Serif
