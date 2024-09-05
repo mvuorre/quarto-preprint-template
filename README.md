@@ -11,6 +11,7 @@ A template for reproducible manuscripts using [Quarto](https://quarto.org/). It 
   - I do not use Docker, so system requirements are up to the user
 - [quarto-preprint](https://github.com/mvuorre/quarto-preprint/) extension
   - Quarto output formats
+- A GitHub action that lints R code on each pull request to main
 - a starter Quarto markdown file (`index.qmd`) with some commonly used code snippets
   - Refers to an `.Renviron` that by default has environment variables suitable for my computer
   - knitr chunk options, ggplot2 theme
