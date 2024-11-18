@@ -68,8 +68,6 @@ options(
 # Repo information
 current_git_commit <- system("git rev-parse HEAD", intern = TRUE)
 current_git_remote <- system("git remote get-url origin", intern = TRUE)
-
-test <- mutaet(dir, alpha, beta,dir, alpha, beta,dir, alpha, beta,,dir, alpha, beta,dir, alpha, betadir, alpha, beta)
 ```
 
 

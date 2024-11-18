@@ -1,10 +1,11 @@
 #let preprint(
   title: none,
   running-head: none,
-  authors: none,
+  authors: (),
   affiliations: none,
   abstract: none,
   keywords: none,
+  wordcount: none,
   authornote: none,
   citation: none,
   date: none,
@@ -12,7 +13,7 @@
   leading: 0.6em,
   spacing: 1em,
   first-line-indent: 0cm,
-  linkcolor: rgb(0, 0, 0),
+  linkcolor: black,
   margin: (x: 3.2cm, y: 3cm),
   paper: "a4",
   lang: "en",
@@ -21,9 +22,9 @@
   fontsize: 11pt,
   section-numbering: none,
   toc: false,
-  toc_title: "contents",
-  toc_depth: none,
-  toc_indent: 1.5em,
+  toc-title: "contents",
+  toc-depth: none,
+  toc-indent: 1.5em,
   bibliography-title: "References",
   bibliography-style: "apa",
   cols: 1,
@@ -40,26 +41,34 @@
   // Allow custom title for bibliography section
   set bibliography(title: bibliography-title, style: bibliography-style)
 
+  // Bibliography paragraph spacing
+  show bibliography: set par(spacing: spacing, leading: leading) if sys.version >= version(0, 12, 0)
+  show bibliography: set block(spacing: leading) if sys.version < version(0, 12, 0)
+
   // Format author strings here, so can use in author note
   let author_strings = ()
   if authors != none {
     for a in authors {
-      let author_string = [
+      let author_string = box[#{
         // Solo manuscripts don't have institutional id
-        #a.name#if authors.len() > 1 [#super[#a.affiliation]]#if a.keys().contains("email") {[\*]}
-        #if a.keys().contains("orcid") {
+        a.name
+        if authors.len() > 1 {super(a.affiliation)}
+        if a.keys().contains("email") {[\*]}
+        if a.keys().contains("orcid") {
             box(
               height: 1em,
               link(
-                a.orcid, 
+                a.orcid,
                 figure(
                   image("orcid.svg", height: 0.9em)
                 )
               )
             )
           }
+        }
         ]
-      if a.keys().contains("email") {
+
+      if a.keys().contains("corresponding") {
         authornote = [\*Send correspondence to: #a.name, #a.email.\ #authornote]
       }
       author_strings.push(author_string)
@@ -68,7 +77,7 @@
 
   // Page settings (including headers & footers)
   set page(
-    paper: paper, 
+    paper: paper,
     margin: margin,
     numbering: "1",
     header-ascent: 50%,
@@ -109,15 +118,19 @@
         }
     )
   )
-  
+
   // Paragraph settings
   set par(
-    justify: true, 
+    justify: true,
     leading: leading,
     first-line-indent: first-line-indent
   )
   // Set space between paragraphs
-  show par: set block(spacing: spacing)
+  if sys.version >= version(0,12,0) {
+    set par(spacing: spacing)
+  } else {
+    show par: set block(spacing: spacing)
+  }
 
   // Text settings
   set text(
@@ -131,7 +144,6 @@
   set heading(
     numbering: section-numbering
   )
-  // Level 1 headers
   show heading.where(
     level: 1
   ): it => block(width: 100%, below: 1em, above: 1.25em)[
@@ -139,48 +151,45 @@
     #set text(size: fontsize*1.1, weight: "bold")
     #it
   ]
-  // Level 2 headers
   show heading.where(
     level: 2
   ): it => block(width: 100%, below: 1em, above: 1.25em)[
     #set text(size: fontsize*1.05)
     #it
   ]
-  // Level 3 headers
   show heading.where(
     level: 3
   ): it => block(width: 100%, below: 0.8em, above: 1.2em)[
     #set text(size: fontsize, style: "italic")
     #it
   ]
-  // Level 4 headers are in paragraph
+  // Level 4 & 5 headers are in paragraph
   show heading.where(
     level: 4
   ): it => box(
-    inset: (top: 0em, bottom: 0em, left: 0em, right: 1em), 
+    inset: (top: 0em, bottom: 0em, left: 0em, right: 1em),
     text(size: 1em, weight: "bold", it)
   )
-  // Level 5 headers are in paragraph
   show heading.where(
     level: 5
   ): it => box(
-    inset: (top: 0em, bottom: 0em, left: 0em, right: 1em), 
+    inset: (top: 0em, bottom: 0em, left: 0em, right: 1em),
     text(size: 1em, weight: "bold", style: "italic", it)
   )
 
   /* Content front matter */
 
   let titleblock(
-    body, 
-    width: 100%, 
-    size: 1.5em, 
-    weight: "bold", 
-    above: 1em, 
+    body,
+    width: 100%,
+    size: 1.5em,
+    weight: "bold",
+    above: 1em,
     below: 0em
   ) = [
     #align(center)[
       #block(width: width, above: above, below: below)[
-        #text(weight: weight, size: size)[#body]
+        #text(weight: weight, size: size, hyphenate: false)[#body]
       ]
     ]
   ]
@@ -204,7 +213,7 @@
       ]
     )
   }
-  
+
   // Abstract and keywords block
   block(inset: (top: 2em, bottom: 0em, left: 2.4em, right: 2.4em))[
     #set text(size: 0.92em)
@@ -214,36 +223,46 @@
     #if keywords != none {
       [#v(0.4em)#text(style: "italic")[Keywords:] #keywords]
     }
+    #if wordcount != none {
+      [\ #text(style: "italic")[Words:] #wordcount]
+    }
   ]
 
   // Table of contents
   if toc {
-    let title = if toc_title == none {
+    let title = if toc-title == none {
       auto
     } else {
-      toc_title
+      toc-title
     }
     block(inset: (top: 2em, bottom: 0em, left: 2.4em, right: 2.4em))[
       #outline(
-        title: toc_title,
-        depth: toc_depth,
-        indent: toc_indent
+        title: toc-title,
+        depth: toc-depth,
+        indent: toc-indent
       )
     ]
+  }
+
+  // Center figure, left-align caption.
+  show figure: set block(inset: (top: 0.4em, bottom: 0.2em))
+    show figure: it => {
+      align(center, it.body)
+      align(left, it.caption)
   }
 
   /* Content */
 
   // Separate content a bit from front matter
   v(2em)
-  
+
   // Show document content with cols if specified
   if cols == 1 {
     doc
   } else {
     columns(
-      cols, 
-      gutter: col-gutter, 
+      cols,
+      gutter: col-gutter,
       doc
     )
   }
@@ -253,5 +272,5 @@
 // Remove gridlines from tables
 #set table(
   inset: 6pt,
-  stroke: none
+  stroke: none,
 )
